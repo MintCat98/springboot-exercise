@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,4 +29,8 @@ public class Question {
   private String content;
 
   private LocalDateTime createDate;
+
+  @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+  // cascade = CascadeType.REMOVE => 질문이 삭제되면 딸린 답변들도 모두 삭제됨
+  private List<Answer> answerList;
 }
