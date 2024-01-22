@@ -1,8 +1,9 @@
-package org.mintcat.springbootexercise;
+package org.mintcat.springbootexercise.question;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.mintcat.springbootexercise.answer.Answer;
 
 import java.time.LocalDateTime;
 import java.util.List;

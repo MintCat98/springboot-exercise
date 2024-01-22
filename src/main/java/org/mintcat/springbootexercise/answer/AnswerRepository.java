@@ -1,4 +1,4 @@
-package org.mintcat.springbootexercise;
+package org.mintcat.springbootexercise.answer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
