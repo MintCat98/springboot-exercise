@@ -11,13 +11,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller
 public class QuestionController {
-  private final QuestionRepository questionRepository;
+  // Service class를 통해 간접 연결
+  private final QuestionService questionService;
 
   @GetMapping("/question/list")
   public String list(Model model) {
     // Model object는 java class와 template의 연결고리
     // Parameter로 Model이 들어가면 자동으로 object가 생성됨
-    List<Question> questionList = this.questionRepository.findAll();
+    List<Question> questionList = this.questionService.getList();
     model.addAttribute("questionList", questionList);
     return "question_list";
   }
