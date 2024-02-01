@@ -15,7 +15,9 @@
     <tbody>
     <tr th:each="question : ${questionList}">
         <!--th: 타임리프 템플릿에 대한 property로, 자바와 연결되는 부분-->
-        <td th:text="${question.subject}"></td>
+        <td>
+            <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
+        </td>
         <td th:text="${question.createDate}"></td>
     </tr>
     </tbody>
