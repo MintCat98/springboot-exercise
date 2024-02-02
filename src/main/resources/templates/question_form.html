@@ -1,0 +1,27 @@
+<html layout:decorate="~{layout}" lang="ko" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<div layout:fragment="content" class="container my-3">
+    <!--페이지명-->
+    <h5 class="my-3 border-bottom pb-2">질문 등록</h5>
+
+    <form th:action="@{/question/create}" th:object="${questionForm}" method="post">
+        <!--에러 메시지-->
+        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+
+        <!--제목 입력-->
+        <div class="mb-3">
+            <label class="form-label" for="subject">제목</label>
+            <input class="form-control" type="text" th:field="*{subject}">
+        </div>
+
+        <!--내용 입력-->
+        <div class="mb-3">
+            <label class="form-label" for="content">내용</label>
+            <textarea class="form-control" th:field="*{content}" rows="10"></textarea>
+        </div>
+
+        <!--버튼-->
+        <input class="btn btn-primary my-2" type="submit" value="저장">
+    </form>
+</div>
+</html>

@@ -1,26 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<table>
-    <thead>
-    <tr>
-        <th>제목</th>
-        <th>작성일시</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="question : ${questionList}">
-        <!--th: 타임리프 템플릿에 대한 property로, 자바와 연결되는 부분-->
-        <td>
-            <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
-        </td>
-        <td th:text="${question.createDate}"></td>
-    </tr>
-    </tbody>
-</table>
-</body>
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" lang="ko">
+
+<div layout:fragment="content" class="container my-3">
+    <!--질문 목록-->
+    <table class="table">
+        <thead class="table-dark">
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성일시</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="question, loop : ${questionList}">
+            <!--th: 타임리프 템플릿에 대한 property로, 자바와 연결되는 부분-->
+            <!--번호-->
+            <td th:text="${loop.count}"></td>
+            <!--제목-->
+            <td>
+                <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
+            </td>
+            <!--작성일시-->
+            <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--질문 등록-->
+    <a class="btn btn-primary" th:href="@{/question/create}">질문 등록하기</a>
+</div>
 </html>
