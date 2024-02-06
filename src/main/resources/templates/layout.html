@@ -9,6 +9,14 @@
     <title>SpringBootPractice</title>
 </head>
 <body>
+<!--Bootstrap JS-->
+<script th:src="@{/bootstrap.min.js}"></script>
+
+<!--템플릿 속 템플릿을 통해 코드를 깔끔하게 관리할 수 있음-->
+<!--Nav Bar-->
+<nav th:replace="~{navbar :: navbarFragment}"></nav>
+
+<!--페이지 내용-->
 <th:block layout:fragment="content"></th:block>
 </body>
 </html>
