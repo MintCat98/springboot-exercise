@@ -12,19 +12,46 @@
         </thead>
 
         <tbody>
-        <tr th:each="question, loop : ${questionList}">
+        <tr th:each="question, loop : ${paging}">
             <!--th: 타임리프 템플릿에 대한 property로, 자바와 연결되는 부분-->
             <!--번호-->
-            <td th:text="${loop.count}"></td>
+            <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
             <!--제목-->
             <td>
                 <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
+                <!--답변 개수 표시-->
+                <span class="text-danger small ms-2" th:if="${#lists.size(question.answerList) > 0}"
+                      th:text="${#lists.size(question.answerList)}"></span>
             </td>
             <!--작성일시-->
             <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
         </tbody>
     </table>
+
+    <!--Paging 기능-->
+    <div th:if="${!paging.isEmpty()}">
+        <ul class="pagination justify-content-center">
+            <!--이전 버튼-->
+            <li class="page-item" th:classappend="${!paging.hasPrevious()} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${paging.number-1}|}">
+                    <span>이전</span>
+                </a>
+            </li>
+            <!--페이지 번호 목록-->
+            <li class="page-item" th:each="page: ${#numbers.sequence(0,paging.totalPages-1)}"
+                th:classappend="${page==paging.number} ? 'active'"
+                th:if="${page >= paging.number-5 and page <= paging.number+5}">
+                <a class="page-link" th:text="${page}" th:href="@{|?page=${page}|}"></a>
+            </li>
+            <!--다음 버튼-->
+            <li class="page-item" th:classappend="${!paging.hasNext()} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                    <span>다음</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 
     <!--질문 등록-->
     <a class="btn btn-primary" th:href="@{/question/create}">질문 등록하기</a>

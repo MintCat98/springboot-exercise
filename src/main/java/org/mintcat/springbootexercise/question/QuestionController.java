@@ -3,6 +3,7 @@ package org.mintcat.springbootexercise.question;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.mintcat.springbootexercise.answer.AnswerForm;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,11 +19,11 @@ public class QuestionController {
   private final QuestionService questionService;
 
   @GetMapping("/list")
-  public String list(Model model) {
+  public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
     // Model object는 java class와 template의 연결고리
     // Parameter로 Model이 들어가면 자동으로 object가 생성됨
-    List<Question> questionList = this.questionService.getList();
-    model.addAttribute("questionList", questionList);
+    Page<Question> paging = this.questionService.getList(page);
+    model.addAttribute("paging", paging);
     return "question_list";
   }
 
