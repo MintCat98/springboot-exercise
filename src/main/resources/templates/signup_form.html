@@ -7,8 +7,30 @@
     </div>
     <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
         <!--에러 메시지-->
-        <div></div>
-        <div></div>
+        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+
+        <!--ID 입력-->
+        <div class="mb-3">
+            <label for="username" class="form-label">사용자 ID</label>
+            <input type="text" th:field="*{username}" class="form-control">
+        </div>
+        <!--PW 입력-->
+        <div class="mb-3">
+            <label for="password1" class="form-label">비밀번호</label>
+            <input type="password" th:field="*{password1}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="password2" class="form-label">비밀번호 확인</label>
+            <input type="password" th:field="*{password2}" class="form-control">
+        </div>
+        <!--이메일-->
+        <div class="mb-3">
+            <label for="email" class="form-label">이메일</label>
+            <input type="email" th:field="*{email}" class="form-control">
+        </div>
+
+        <!--확인 버튼-->
+        <button type="submit" class="btn btn-primary">회원가입</button>
     </form>
 </div>
 </html>

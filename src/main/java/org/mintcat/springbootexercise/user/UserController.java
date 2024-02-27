@@ -2,6 +2,7 @@ package org.mintcat.springbootexercise.user;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +32,20 @@ public class UserController {
       return "signup_form";
     }
 
-    userService.create(
-        userCreateForm.getUsername(), userCreateForm.getEmail(), userCreateForm.getPassword1());
+    // 중복 검증
+    try {
+      userService.create(
+          userCreateForm.getUsername(), userCreateForm.getEmail(), userCreateForm.getPassword1());
+    } catch (DataIntegrityViolationException e) {
+      e.printStackTrace();
+      bindingResult.reject("signupFailed", "중복된 ID입니다.");
+      return "signup_form";
+    } catch (Exception e) {
+      e.printStackTrace();
+      bindingResult.reject("signupFailed", e.getMessage());
+      return "signup_form";
+    }
+
     return "redirect:/";
   }
 }
